@@ -18,11 +18,16 @@ public class Demo {
     SqlConnectionStringBuilder connString = new SqlConnectionStringBuilder();
    
     public void ConnectToDB() {
+        connString.UserID = "sa";
+        connString.Encrypt = false;
+        connString.Password = "Teng!n@404";
+        connString.DataSource = "localhost";
+        connString.InitialCatalog = "userdb";
         connString.DataSource = "localhost";
         connString.InitialCatalog = "userdb";
         
         Console.WriteLine("Connecting to db....");
-        using (SqlConnection conn = new SqlConnection(connectionString)) {
+        using (SqlConnection conn = new SqlConnection(connString.ToString())) {
 
             try
             {
@@ -30,6 +35,7 @@ public class Demo {
                 Console.WriteLine("Connection Open");
                 SqlCommand cmd = new SqlCommand("select * from customer",conn);
                 SqlDataReader reader = cmd.ExecuteReader();
+               
                 if (reader.HasRows)
                 {
                     while (reader.Read())
